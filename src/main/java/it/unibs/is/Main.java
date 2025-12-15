@@ -2,6 +2,7 @@ package it.unibs.is;
 
 import it.unibs.is.model.SchemaIniziative;
 import it.unibs.is.persistence.SchemaFileRepository;
+import it.unibs.is.ui.MenuV1;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,6 +16,9 @@ public class Main {
             System.out.println("Categorie presenti: " + schema.getCategorie().size());
             System.out.println("Campi base: " + schema.getCampiBase().size());
             System.out.println("Campi comuni: " + schema.getCampiComuni().size());
+
+            MenuV1 menu = new MenuV1(schema, repo);
+            menu.esegui();
 
         } catch (Exception e) {
             System.out.println("Errore nel caricamento dello schema:");

@@ -4,6 +4,7 @@ import it.unibs.is.model.*;
 
 import java.io.*;
 import java.util.*;
+import java.util.List;
 
 public class SchemaFileRepository {
 
@@ -68,5 +69,31 @@ public class SchemaFileRepository {
         }
             schema.chiudiDefinizioneCampiBase();
         return schema;
+    }
+        public void salvaSchema(SchemaIniziative schema) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) {
+
+            writer.write("# === CAMPI BASE ===\n");
+            for (CampoDefinizione c : schema.getCampiBase()) {
+                writer.write("BASE;" + c.getNome() + ";" + (c.isObbligatorio() ? "OBBLIGATORIO" : "FACOLTATIVO") + "\n");
+            }
+            writer.write("\n");
+
+            writer.write("# === CAMPI COMUNI ===\n");
+            for (CampoDefinizione c : schema.getCampiComuni()) {
+                writer.write("COMUNE;" + c.getNome() + ";" + (c.isObbligatorio() ? "OBBLIGATORIO" : "FACOLTATIVO") + "\n");
+            }
+            writer.write("\n");
+
+            writer.write("# === CATEGORIE ===\n");
+            List<Categoria> categorie = schema.getCategorie();
+            for (Categoria cat : categorie) {
+                writer.write("CATEGORIA;" + cat.getNome() + "\n");
+                for (CampoDefinizione spec : cat.getCampiSpecifici()) {
+                    writer.write("SPECIFICO;" + spec.getNome() + ";" + (spec.isObbligatorio() ? "OBBLIGATORIO" : "FACOLTATIVO") + "\n");
+                }
+                writer.write("\n");
+            }
+        }
     }
 }
