@@ -24,4 +24,13 @@ public class Categoria {
         if (campo == null) throw new IllegalArgumentException("Campo nullo");
         campiSpecifici.add(campo);
     }
+        // Supporto MenuV1 (V1)
+    // Scelta progettuale: confronto case-sensitive e nessuna eccezione per null/blank.
+    public boolean esisteCampoSpecifico(String nomeCampo) {
+        if (nomeCampo == null || nomeCampo.isBlank()) return false;
+        for (CampoDefinizione c : campiSpecifici) {
+            if (nomeCampo.equals(c.getNome())) return true;
+        }
+        return false;
+    }
 }

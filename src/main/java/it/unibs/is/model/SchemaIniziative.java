@@ -62,4 +62,49 @@ public class SchemaIniziative {
         if (categoria == null) throw new IllegalArgumentException("Categoria nulla");
         categorie.add(categoria);
     }
+        // === Metodi di supporto per MenuV1 (V1) ===
+    // Scelta progettuale: confronto case-sensitive e nessuna eccezione per null/blank.
+
+    public boolean esisteCategoria(String nome) {
+        if (nome == null || nome.isBlank()) return false;
+        for (Categoria c : categorie) {
+            if (nome.equals(c.getNome())) return true;
+        }
+        return false;
+    }
+
+    public Categoria getCategoria(String nome) {
+        if (nome == null || nome.isBlank()) return null;
+        for (Categoria c : categorie) {
+            if (nome.equals(c.getNome())) return c;
+        }
+        return null;
+    }
+
+    public boolean rimuoviCategoria(String nome) {
+        if (nome == null || nome.isBlank()) return false;
+        for (int i = 0; i < categorie.size(); i++) {
+            if (nome.equals(categorie.get(i).getNome())) {
+                categorie.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean esisteCampoComune(String nome) {
+        if (nome == null || nome.isBlank()) return false;
+        for (CampoDefinizione c : campiComuni) {
+            if (nome.equals(c.getNome())) return true;
+        }
+        return false;
+    }
+
+    public CampoDefinizione getCampoComune(String nome) {
+        if (nome == null || nome.isBlank()) return null;
+        for (CampoDefinizione c : campiComuni) {
+            if (nome.equals(c.getNome())) return c;
+        }
+        return null;
+    }
 }
