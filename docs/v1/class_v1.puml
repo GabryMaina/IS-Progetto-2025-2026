@@ -1,0 +1,70 @@
+@startuml class_v1
+
+' ========== Entità principali (V1) ==========
+
+class Configuratore {
+  +username: String
+  +password: String
+}
+
+' Scelta progettuale: credenziali predefinite modellate come valore di configurazione,
+' perché il PDF non specifica come siano gestite internamente.
+class CredenzialiPredefinite {
+  +username: String
+  +password: String
+}
+
+enum TipoCampo {
+  BASE
+  COMUNE
+  SPECIFICO
+}
+
+class CampoDefinizione {
+  +nome: String
+  +obbligatorio: boolean
+  +tipo: TipoCampo
+}
+
+class Categoria {
+  +nome: String
+}
+
+class SchemaIniziative {
+  +campiBaseImmutabili: boolean
+}
+
+' Relazioni: campi base e comuni sono condivisi da tutte le categorie.
+SchemaIniziative "1" o-- "1..*" CampoDefinizione : campiBase
+SchemaIniziative "1" o-- "0..*" CampoDefinizione : campiComuni
+SchemaIniziative "1" o-- "0..*" Categoria : categorie
+
+Categoria "1" o-- "0..*" CampoDefinizione : campiSpecifici
+
+' ========== Persistenza (V1) ==========
+' Scelta progettuale: servizio unico di persistenza; il PDF richiede persistenza
+' ma non impone DBMS né tecnologia specifica.
+interface Persistenza {
+  +salvaConfiguratori(): void
+  +caricaConfiguratori(): void
+  +salvaSchema(): void
+  +caricaSchema(): void
+}
+
+class BackEndV1 {
+  +primoAccesso(credenzialiPredefinite): void
+  +impostaCredenzialiPersonali(username, password): void
+  +definisciCampiBase(campi): void
+  +gestisciCampiComuni(): void
+  +aggiungiCategoria(nome): void
+  +modificaCampi(): void
+  +rimuoviCategoria(nome): void
+  +visualizzaCategorieECampi(): void
+}
+
+BackEndV1 --> Persistenza
+BackEndV1 --> SchemaIniziative
+BackEndV1 --> Configuratore
+BackEndV1 --> CredenzialiPredefinite
+
+@enduml
