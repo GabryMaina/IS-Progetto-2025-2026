@@ -16,6 +16,7 @@
 6. Il sistema verifica che lo username sia univoco tra i configuratori.
 7. Il sistema salva in modo persistente le credenziali personali.
 8. Il sistema consente l’accesso alle funzionalità del back-end.
+
 **Alternative / eccezioni:**
 A1. Credenziali predefinite errate → il sistema nega l’accesso.  
 A2. Username personale già in uso da un altro configuratore → il sistema richiede uno username diverso.
