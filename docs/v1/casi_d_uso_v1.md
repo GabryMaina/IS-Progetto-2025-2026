@@ -18,6 +18,7 @@
 8. Il sistema consente l’accesso alle funzionalità del back-end.
 
 **Alternative / eccezioni:**
+
 A1. Credenziali predefinite errate → il sistema nega l’accesso.  
 A2. Username personale già in uso da un altro configuratore → il sistema richiede uno username diverso.
 
@@ -30,7 +31,9 @@ A2. Username personale già in uso da un altro configuratore → il sistema rich
 2. Il sistema presenta l’elenco dei campi base richiesto dal progetto.
 3. Il configuratore conferma la definizione.
 4. Il sistema salva in modo persistente l’elenco dei campi base.
+   
 **Alternative / eccezioni:**
+
 A1. L’elenco dei campi base è già stato creato in precedenza → il sistema non consente modifiche.
 
 ## UC3 — Gestione campi comuni (crea/modifica)
